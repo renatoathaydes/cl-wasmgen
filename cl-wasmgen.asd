@@ -11,7 +11,8 @@
                (:file "src/vec-stream")
                (:file "src/constants")
                (:file "src/writers")
-               (:file "src/main")))
+               (:file "src/main"))
+  :in-order-to ((asdf:test-op (asdf:test-op "cl-wasmgen/tests"))))
 
 
 (asdf:defsystem "cl-wasmgen/tests"
