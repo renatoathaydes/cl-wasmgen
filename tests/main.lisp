@@ -1,0 +1,11 @@
+(in-package #:wasmgen/tests)
+
+(defun run-tests ()
+  (when (null +tests+) (error "No tests added"))
+  (format T "Running ~A test(s)." (length +tests+))
+  (handler-case (dolist (test +tests+)
+                  (let ((result (eval-test test)))
+                    (if (eq :ok (car result))
+                        (format T "OK: ~A~%" (test-name test))
+                        (format T "~A: ~A ~A~%" (car result) (test-name test) (cdr result)))))
+    (error (e) (format T "Tests failed: ~A~%" e))))
