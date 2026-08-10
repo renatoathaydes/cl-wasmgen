@@ -8,3 +8,8 @@
 
 (add-test "write-sequence (non-empty)"
   (stream-contains #(1 2 3) :after (wasmgen::write-sequence #(1 2 3) stream)))
+
+(add-test "write-sequence (multiple calls)"
+  (stream-contains #(1 2 3 4 5) :after (progn
+                                         (wasmgen::write-sequence #(1 2) stream)
+                                         (wasmgen::write-sequence #(3 4 5) stream))))
