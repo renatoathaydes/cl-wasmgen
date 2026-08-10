@@ -14,14 +14,20 @@
   (write-u32 (length value) stream)
   (write-sequence (map 'list #'char-code value) stream))
 
+(defun write-wasm-header (stream)
+  (write-sequence +wasm-magic-number+ stream)
+  (write-sequence +wasm-version-1+ stream))
+
 (defmacro write-section
-    (section-id name stream (section-stream) &body body)
-  `(let ((,section-stream (make-instance 'vector-output-stream)))
+    (section-id name stream section-stream &body body)
+  `(progn
      (write-byte ,section-id ,stream)
      (when ,name (write-name ,name ,section-stream))
      ;; the body writes the section itself
      ,@body
      ;; write the section length
-     (write-u32 (length (vector-output-stream-vector ,section-stream )) ,stream)
+     (write-u32 (length (vector-output-stream-vector ,section-stream)) ,stream)
      ;; flush the section
-     (drain-to ,section-stream ,stream)))
+     (drain-to ,section-stream ,stream)
+     ;; return the now empty ss for reuse
+     ,section-stream))

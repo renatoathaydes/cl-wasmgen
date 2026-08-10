@@ -1,5 +1,8 @@
 (in-package #:wasmgen)
 
+(defparameter +wasm-magic-number+ #(#x00 #x61 #x73 #x6d))
+(defparameter +wasm-version-1+ #(#x01 #x00 #x00 #x00))
+
 (defparameter +section-id/custom+         0)
 (defparameter +section-id/type+           1)
 (defparameter +section-id/import+         2)
