@@ -33,4 +33,4 @@
        ,after
        (with-slots ((actual vector)) stream
          (unless (equalp ,expected actual)
-           (format nil "actual not equal: ~A" actual))))))
+           (format nil "actual: ~A" actual))))))
