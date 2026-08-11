@@ -18,7 +18,7 @@
 (asdf:defsystem "cl-wasmgen/tests"
   :author "Renato Athaydes"
   :license "GPL"
-  :depends-on ("cl-wasmgen")
+  :depends-on ("cl-wasmgen" "format-ansi")
   :pathname "tests"
   :components ((:file "package")
                (:file "test-framework" :depends-on ("package"))

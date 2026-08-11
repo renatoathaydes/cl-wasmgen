@@ -2,7 +2,8 @@
 
 (defun run-tests ()
   (when (null +tests+) (error "No tests added"))
-  (format T "== WASMGEN TESTS ==~%Running ~A test(s).~%" (length +tests+))
+  (ansi:format-ansi T `((:fg :green "== WASMGEN TESTS ==")
+                        ,(format nil "~%Running ~A test(s).~%" (length +tests+))))
   (let ((ok-count 0)
         (fail-count 0)
         (error-count 0))
@@ -13,11 +14,17 @@
         (case (car result)
           (:ok
            (incf ok-count)
-           (format T "OK: ~A~%" (test-name test)))
+           (ansi:format-ansi T `((:fg :green "OK: ")
+                                 (:st :bold ,(test-name test))
+                                 ,(string #\Newline))))
           (:error
            (incf error-count)
-           (format T "ERROR: ~A ~A~%" (test-name test) (cdr result)))
+           (ansi:format-ansi T `((:fg :red "ERROR: ")
+                                 (:st :bold ,(test-name test))
+                                 ,(format nil " ~A~%" (cdr result)))))
           (T
            (incf fail-count)
-           (format T "~A: ~A ~A~%" (car result) (test-name test) (cdr result))))))
+           (ansi:format-ansi T `((:fg :yellow ,(format nil "~A: " (car result)))
+                                 (:st :bold :fg :red ,(test-name test))
+                                 ,(format nil " ~A~%" (cdr result))))))))
     (format T "Success: ~A, Failures: ~A, Errors: ~A~%" ok-count fail-count error-count)))
