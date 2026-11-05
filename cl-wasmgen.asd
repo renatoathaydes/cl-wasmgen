@@ -18,7 +18,7 @@
 (asdf:defsystem "cl-wasmgen/tests"
   :author "Renato Athaydes"
   :license "GPL"
-  :depends-on ("cl-wasmgen" "format-ansi")
+  :depends-on ("cl-wasmgen" "format-ansi" "cl-lustre-tests")
   :pathname "tests"
   :components ((:file "package")
                (:file "test-framework" :depends-on ("package"))
@@ -26,4 +26,4 @@
                (:file "main" :depends-on ("writer-tests")))
   :description "Test system for cl-wasmgen"
   :perform (asdf:test-op (op c)
-                    (uiop:symbol-call :wasmgen/tests :run-tests)))
+                    (uiop:symbol-call :lustre-tests :test)))

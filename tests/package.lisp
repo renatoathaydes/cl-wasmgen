@@ -1,3 +1,4 @@
 (defpackage #:wasmgen/tests
   (:use #:cl #:wasmgen)
-  (:export #:run-tests))
+  (:local-nicknames
+   (#:lt #:lustre-tests)))
