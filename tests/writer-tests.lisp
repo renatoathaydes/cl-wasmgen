@@ -19,9 +19,10 @@
   (stream-contains #(0) :after (wasmgen::write-name "" stream)))
 
 (lt:define-test "write-name (simple)" (writer)
-  (stream-contains #(6 115 105 109 112 108 101) :after (wasmgen::write-name "simple" stream)))
+  (stream-contains (concatenate 'vector #(6) (char-codes '(#\s #\i #\m #\p #\l #\e)))
+                   :after (wasmgen::write-name "simple" stream)))
 
 (lt:define-test "write-section (custom empty)" (writer)
-  (stream-contains #(0 2 1 65)
+  (stream-contains (vector 0 2 1 (char-code #\A))
                    :after (let ((section-stream (make-stream)))
                             (wasmgen::write-section wasmgen::+section-id/custom+ "A" stream section-stream))))

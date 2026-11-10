@@ -22,8 +22,7 @@
   :pathname "tests"
   :components ((:file "package")
                (:file "test-framework" :depends-on ("package"))
-               (:file "writer-tests" :depends-on ("test-framework"))
-               (:file "main" :depends-on ("writer-tests")))
+               (:file "writer-tests" :depends-on ("test-framework")))
   :description "Test system for cl-wasmgen"
   :perform (asdf:test-op (op c)
                     (uiop:symbol-call :lustre-tests :test)))

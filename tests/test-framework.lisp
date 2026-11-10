@@ -2,6 +2,9 @@
 
 (defun make-stream () (make-instance 'wasmgen::vector-output-stream))
 
+(defun char-codes (chars)
+  (mapcar #'char-code chars))
+
 ;;;;;; test assertions ;;;;;;;
 
 (defmacro stream-contains (expected &key after)
