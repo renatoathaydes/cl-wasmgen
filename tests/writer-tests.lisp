@@ -25,4 +25,4 @@
 (lt:define-test "write-section (custom empty)" (writer)
   (stream-contains (vector 0 2 1 (char-code #\A))
                    :after (let ((section-stream (make-stream)))
-                            (wasmgen::write-section wasmgen::+section-id/custom+ "A" stream section-stream))))
+                            (wasmgen::write-section wasmgen::+section-id/custom+ "A" stream (ss)))))
