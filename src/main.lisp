@@ -17,14 +17,10 @@
       (write-byte #x42 ss)
       (write-byte #x51 ss))
 
-    ;; function section
+    ;; function types section
     (write-section +section-id/type+ nil stream (ss)
       (write-u32 1 ss) ; number of types
-      (write-byte +type/func+ ss) ; a function type
-      (write-u32 2 ss) ; 2 args
-      (write-byte +type/i32+ ss)
-      (write-byte +type/i32+ ss)
-      (write-u32 1 ss) ; 1 result
-      (write-byte +type/i64+ ss))
-    
-    ))
+      (write-function-type
+       (list +type/i32+ +type/i32+) ;; params
+       (list +type/i64+) ;; results
+       ss))))

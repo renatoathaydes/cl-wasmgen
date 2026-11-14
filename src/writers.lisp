@@ -47,7 +47,7 @@ The output is as follows:
      parameter_types: valtype[]
      return_count: u32
      return_types: valtype[]"
-  (write-u32 #x60 stream)
+  (write-u32 +type/func+ stream)
   (write-u32 (length params) stream)
   (loop for param in params
         do (write-byte param stream))
