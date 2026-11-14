@@ -25,3 +25,8 @@
 (defconstant +type/f32+     #x7d)
 (defconstant +type/i64+     #x7e)
 (defconstant +type/i32+     #x7f)
+
+(defconstant +kind/function+   #x00)
+(defconstant +kind/table+      #x01)
+(defconstant +kind/memory+     #x02)
+(defconstant +kind/global+     #x03)

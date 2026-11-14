@@ -8,9 +8,9 @@
   :entry-point "wasmgen:main"
   :pathname "src"
   :components ((:file "package")
-               (:file "types" :depends-on ("package"))
-               (:file "vec-stream" :depends-on ("package"))
                (:file "constants" :depends-on ("package"))
+               (:file "types" :depends-on ("constants"))
+               (:file "vec-stream" :depends-on ("package"))
                (:file "writers" :depends-on ("types" "constants"))
                (:file "main" :depends-on ("writers")))
   :in-order-to ((asdf:test-op (asdf:test-op "cl-wasmgen/tests"))))

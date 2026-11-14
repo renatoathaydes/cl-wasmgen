@@ -17,10 +17,24 @@
   (stream-contains #(0) :after (write-name "" stream)))
 
 (lt:define-test "write-name (simple)" (writer)
-  (stream-contains (concatenate 'vector #(6) (char-codes '(#\s #\i #\m #\p #\l #\e)))
+  (stream-contains (concatenate 'vector #(6) (char-codes #\s #\i #\m #\p #\l #\e))
                    :after (write-name "simple" stream)))
 
 (lt:define-test "write-section (custom empty)" (writer)
   (stream-contains (vector 0 2 1 (char-code #\A))
-                   :after (let ((section-stream (make-stream)))
-                            (write-section wasmgen::+section-id/custom+ "A" stream (ss)))))
+                   :after (write-section +section-id/custom+ "A" stream (ss))))
+
+(lt:define-test "write-function-type" (writer)
+  (stream-contains (vector #x60 2 #x7f #x7c 1 #x7e)
+                   :after (write-function-type
+                           (list +type/i32+ +type/f64+)
+                           (list +type/i64+)
+                           stream)))
+
+(lt:define-test "write-import" (writer)
+  (stream-contains (concatenate 'vector
+                           #(3) (char-codes #\e #\n #\v)         ; Module name: "env"
+                           #(5) (char-codes #\p #\r #\i #\n #\t) ; Field name: "print"
+                           #(0)                                  ; Function import
+                           #(0))                                 ; Type index 0
+                   :after (write-import "env" "print" +kind/function+ 0 stream)))

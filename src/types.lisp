@@ -9,3 +9,8 @@
 
 (deftype bytes ()
   `(satisfies list-of-bytes?))
+
+(deftype import-kind ()
+  `(and
+    (unsigned-byte 8)
+    (member ,+kind/function+ ,+kind/table+ ,+kind/memory+ ,+kind/global+)))

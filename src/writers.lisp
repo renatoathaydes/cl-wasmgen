@@ -54,3 +54,10 @@ The output is as follows:
   (write-u32 (length returns) stream)
   (loop for ret in returns
         do (write-byte ret stream)))
+
+(declaim (ftype (function (string string import-kind (unsigned-byte 32) stream) t) write-import))
+(defun write-import (module-name field-name kind type-index stream)
+  (write-name module-name stream)
+  (write-name field-name stream)
+  (write-byte kind stream)
+  (write-u32 type-index stream))

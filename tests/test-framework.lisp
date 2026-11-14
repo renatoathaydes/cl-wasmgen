@@ -2,7 +2,7 @@
 
 (defun make-stream () (make-instance 'wasmgen::vector-output-stream))
 
-(defun char-codes (chars)
+(defun char-codes (&rest chars)
   (mapcar #'char-code chars))
 
 ;;;;;; test assertions ;;;;;;;
@@ -14,4 +14,4 @@
      (progn
        ,after
        (with-slots ((actual vector)) stream
-         (assert (equalp ,expected actual))))))
+         (lt:expect-seq ,expected actual :test 'eql)))))

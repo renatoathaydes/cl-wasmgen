@@ -1,6 +1,3 @@
-; 0000000: 0061 736d              ; WASM_BINARY_MAGIC
-; 0000004: 0100 0000              ; WASM_BINARY_VERSION
-
 (in-package #:wasmgen)
 
 (defun main ()
@@ -21,6 +18,13 @@
     (write-section +section-id/type+ nil stream (ss)
       (write-u32 1 ss) ; number of types
       (write-function-type
-       (list +type/i32+ +type/i32+) ;; params
-       (list +type/i64+) ;; results
-       ss))))
+       (list +type/i32+ +type/i32+ +type/i32+ +type/i32+) ;; params
+       (list +type/i32+) ;; results
+       ss))
+    
+    ;; imports section;
+    (write-section +section-id/import+ nil stream (ss)
+      (write-u32 1 ss) ;; number of imports
+      (write-import "wasi_snapshot_preview1" "fd_write" +kind/function+ 0 ss))
+
+    ))
