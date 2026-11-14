@@ -6,14 +6,14 @@
   :depends-on ("trivial-gray-streams")
   :build-operation asdf:program-op
   :entry-point "wasmgen:main"
-  :serial t
-  :components ((:file "src/package")
-               (:file "src/vec-stream")
-               (:file "src/constants")
-               (:file "src/writers")
-               (:file "src/main"))
+  :pathname "src"
+  :components ((:file "package")
+               (:file "types" :depends-on ("package"))
+               (:file "vec-stream" :depends-on ("package"))
+               (:file "constants" :depends-on ("package"))
+               (:file "writers" :depends-on ("types" "constants"))
+               (:file "main" :depends-on ("writers")))
   :in-order-to ((asdf:test-op (asdf:test-op "cl-wasmgen/tests"))))
-
 
 (asdf:defsystem "cl-wasmgen/tests"
   :author "Renato Athaydes"
