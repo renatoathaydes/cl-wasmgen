@@ -1,11 +1,14 @@
 (in-package #:wasmgen)
 
-(defun main ()
-  (with-open-file (stream "first.wasm"
-                          :direction :output
-                          :element-type '(unsigned-byte 8)
-                          :if-exists :supersede)
+(defmacro wasm-to-file (file (stream) &body body)
+  `(with-open-file (,stream ,file
+                            :direction :output
+                            :element-type '(unsigned-byte 8)
+                            :if-exists :supersede)
+     ,@body))
 
+(defun main ()
+  (wasm-to-file "first.wasm" (stream)
     ;; write the magic number + WASM binary version
     (write-wasm-header stream)
 

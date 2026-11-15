@@ -1,4 +1,18 @@
-(in-package #:wasmgen)
+;;; This file contains the low-level writer functions.
+;;; They are used to write everything the WASM standard defines.
+;;; No help is provided regarding the WASM module's structure itself.
+;;; Use the high-level API, which is built on top of these writers,
+;;; to write
+(defpackage #:wasmgen/writers
+  (:use #:cl #:wasmgen)
+  (:export #:write-u32
+           #:write-name
+           #:write-wasm-header
+           #:write-section
+           #:write-function-type
+           #:write-import))
+
+(in-package #:wasmgen/writers)
 
 (declaim (ftype (function ((unsigned-byte 32) stream) null)
                 write-u32))
@@ -25,7 +39,7 @@
 
 (defmacro write-section
     (section-id name stream (section-stream) &body body)
-  `(let ((,section-stream (make-instance 'vector-output-stream)))
+  `(let ((,section-stream (make-instance 'wasmgen:vector-output-stream)))
      (write-byte ,section-id ,stream)
      (when ,name (write-name ,name ,section-stream))
      ;; the body writes the section itself
@@ -33,7 +47,7 @@
      ;; write the section length
      (write-u32 (length (vector-output-stream-vector ,section-stream)) ,stream)
      ;; flush the section
-     (drain-to ,section-stream ,stream)
+     (wasmgen::drain-to ,section-stream ,stream)
      ;; return nothing
      nil))
 

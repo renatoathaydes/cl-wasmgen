@@ -3,12 +3,12 @@
   (:local-nicknames
    (#:gst #:trivial-gray-streams))
   (:export #:main
-           #:write-u32
-           #:write-name
-           #:write-wasm-header
-           #:write-section
-           #:write-function-type
-           #:write-import
+           ;; types
+           #:bytes
+           #:import-kind
+           ;; classes and methods
+           #:vector-output-stream
+           #:vector-output-stream-vector
            ;; constants
            #:+wasm-magic-number+
            #:+wasm-version-1+

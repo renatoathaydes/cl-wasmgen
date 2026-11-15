@@ -1,14 +1,14 @@
 (in-package #:wasmgen)
 
-(defun byte? (b)
+(defun byte-p (b)
   (typep b '(unsigned-byte 8)))
 
-(defun list-of-bytes? (list)
+(defun list-of-bytes-p (list)
   (and (listp list)
-       (every (lambda (n) (byte? n)) list)))
+       (every (lambda (n) (byte-p n)) list)))
 
 (deftype bytes ()
-  `(satisfies list-of-bytes?))
+  `(satisfies list-of-bytes-p))
 
 (deftype import-kind ()
   `(and
