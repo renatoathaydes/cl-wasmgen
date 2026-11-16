@@ -71,6 +71,12 @@ The output is as follows:
 
 (declaim (ftype (function (string string import-kind (unsigned-byte 32) stream) t) write-import))
 (defun write-import (module-name field-name kind type-index stream)
+  "Writes an import within the Import Section.
+The output is as follows:
+    module_name: name
+    field_name: name
+    import_kind: byte
+    type_index: u32"
   (write-name module-name stream)
   (write-name field-name stream)
   (write-byte kind stream)

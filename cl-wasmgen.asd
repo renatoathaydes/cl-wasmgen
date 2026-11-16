@@ -5,11 +5,12 @@
   :license "Apache-2.0"
   :depends-on ("trivial-gray-streams")
   :build-operation asdf:program-op
-  :entry-point "wasmgen:main"
+  :entry-point "wasmgen/main:main"
   :pathname "src"
   :components ((:file "package")
                (:file "constants" :depends-on ("package"))
                (:file "types" :depends-on ("constants"))
+               (:file "utils" :depends-on ("package"))
                (:file "vec-stream" :depends-on ("package"))
                (:file "writers" :depends-on ("types" "constants"))
                (:file "main" :depends-on ("writers")))
