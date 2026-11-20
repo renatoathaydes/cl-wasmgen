@@ -33,8 +33,16 @@
 
 (lt:define-test "write-import" (writer)
   (stream-contains (concatenate 'vector
-                           #(3) (char-codes #\e #\n #\v)         ; Module name: "env"
-                           #(5) (char-codes #\p #\r #\i #\n #\t) ; Field name: "print"
-                           #(0)                                  ; Function import
-                           #(0))                                 ; Type index 0
+                                #(3) (char-codes #\e #\n #\v)         ; Module name: "env"
+                                #(5) (char-codes #\p #\r #\i #\n #\t) ; Field name: "print"
+                                #(0)                                  ; Function import
+                                #(0))                                 ; Type index 0
                    :after (write-import "env" "print" +kind/function+ 0 stream)))
+
+(lt:define-test "write-table (min-only)" (writer)
+  (stream-contains #(#x70 0 10)
+                   :after (write-table +absheaptype/func+ 10 nil stream)))
+
+(lt:define-test "write-table (min-max)" (writer)
+  (stream-contains #(#x70 1 10 11)
+                   :after (write-table +absheaptype/func+ 10 11 stream)))

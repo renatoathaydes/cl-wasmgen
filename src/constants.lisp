@@ -30,3 +30,17 @@
 (defconstant +kind/table+      #x01)
 (defconstant +kind/memory+     #x02)
 (defconstant +kind/global+     #x03)
+
+(defconstant +absheaptype/exn+      #x69)
+(defconstant +absheaptype/array+    #x6A)
+(defconstant +absheaptype/struct+   #x6B)
+(defconstant +absheaptype/i31+      #x6C)
+(defconstant +absheaptype/eq+       #x6D)
+(defconstant +absheaptype/any+      #x6E)
+(defconstant +absheaptype/extern+   #x6F)
+(defconstant +absheaptype/func+     #x70)
+(defconstant +absheaptype/none+     #x71)
+(defconstant +absheaptype/noextern+ #x72)
+(defconstant +absheaptype/nofunc+   #x73)
+(defconstant +absheaptype/noexn+    #x74)
+

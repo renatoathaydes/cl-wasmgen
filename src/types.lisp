@@ -14,3 +14,6 @@
   `(and
     (unsigned-byte 8)
     (member ,+kind/function+ ,+kind/table+ ,+kind/memory+ ,+kind/global+)))
+
+(deftype reftype ()
+  `(member ,+absheaptype/func+ ,+absheaptype/extern+))

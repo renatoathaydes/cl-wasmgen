@@ -10,7 +10,8 @@
            #:write-wasm-header
            #:write-section
            #:write-function-type
-           #:write-import))
+           #:write-import
+           #:write-table))
 
 (in-package #:wasmgen/writers)
 
@@ -81,3 +82,21 @@ The output is as follows:
   (write-name field-name stream)
   (write-byte kind stream)
   (write-u32 type-index stream))
+
+(declaim (ftype (function (wasmgen:reftype
+                           (unsigned-byte 32)
+                           (or null (unsigned-byte 32))
+                           stream)
+                          t)
+                write-table))
+(defun write-table (type min max stream)
+  "writes a table within the table section.
+the output is as follows:
+    element_type: reftype
+    flags: u32     (0 if min only, 1 if min and max)
+    minimum: u32
+    maximum?: u32"
+  (write-u32 type stream)
+  (write-byte (if max 1 0) stream)
+  (write-u32 min stream)
+  (when max (write-u32 max stream)))

@@ -6,6 +6,7 @@
    ;; types
    #:bytes
    #:import-kind
+   #:reftype
    ;; classes and methods
    #:vector-output-stream
    #:vector-output-stream-vector
@@ -36,4 +37,16 @@
    #:+kind/function+
    #:+kind/table+
    #:+kind/memory+
-   #:+kind/global+))
+   #:+kind/global+
+   #:+absheaptype/exn+
+   #:+absheaptype/array+
+   #:+absheaptype/struct+
+   #:+absheaptype/i31+
+   #:+absheaptype/eq+
+   #:+absheaptype/any+
+   #:+absheaptype/extern+
+   #:+absheaptype/func+
+   #:+absheaptype/none+
+   #:+absheaptype/noextern+
+   #:+absheaptype/nofunc+
+   #:+absheaptype/noexn+))
