@@ -46,3 +46,19 @@
 (lt:define-test "write-table (min-max)" (writer)
   (stream-contains #(#x70 1 10 11)
                    :after (write-table +absheaptype/func+ 10 11 stream)))
+
+(lt:define-test "write-memory (min-only)" (writer)
+  (stream-contains #(0 2)
+                   :after (write-memory 2 nil stream)))
+
+(lt:define-test "write-memory (min-max)" (writer)
+  (stream-contains #(1 2 4)
+                   :after (write-memory 2 4 stream)))
+
+(lt:define-test "write-global" (writer)
+  (stream-contains
+   #(#x7c 0 #xff)
+   :after
+   (flet ((write-expr ()
+            (write-byte #xff stream)))
+     (write-global +type/f64+ 0 #'write-expr stream))))

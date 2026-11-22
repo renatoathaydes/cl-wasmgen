@@ -11,7 +11,9 @@
            #:write-section
            #:write-function-type
            #:write-import
-           #:write-table))
+           #:write-table
+           #:write-memory
+           #:write-global))
 
 (in-package #:wasmgen/writers)
 
@@ -91,7 +93,7 @@ The output is as follows:
                 write-table))
 (defun write-table (type min max stream)
   "writes a table within the table section.
-the output is as follows:
+The output is as follows:
     element_type: reftype
     flags: u32     (0 if min only, 1 if min and max)
     minimum: u32
@@ -100,3 +102,29 @@ the output is as follows:
   (write-byte (if max 1 0) stream)
   (write-u32 min stream)
   (when max (write-u32 max stream)))
+
+(declaim (ftype (function ((unsigned-byte 32)
+                           (or null (unsigned-byte 32))
+                           stream)
+                          t)
+                write-memory))
+(defun write-memory (min max stream)
+  "Write a memory limits within the memory section.
+The output is as follows:
+    flags: u32     (0 if min only, 1 if min and max)
+    minimum: u32
+    maximum?: u32"
+  (write-byte (if max 1 0) stream)
+  (write-u32 min stream)
+  (when max (write-u32 max stream)))
+
+(declaim (ftype (function ((unsigned-byte 8)
+                           (unsigned-byte 1)
+                           (function () t)
+                           stream)
+                          t)
+                write-global))
+(defun write-global (type mutability write-init-expr stream)
+  (write-byte type stream)
+  (write-byte mutability stream)
+  (funcall write-init-expr))
