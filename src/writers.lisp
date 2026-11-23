@@ -13,7 +13,8 @@
            #:write-import
            #:write-table
            #:write-memory
-           #:write-global))
+           #:write-global
+           #:write-export))
 
 (in-package #:wasmgen/writers)
 
@@ -125,6 +126,29 @@ The output is as follows:
                           t)
                 write-global))
 (defun write-global (type mutability write-init-expr stream)
+  "Write a global declaration within the global section.
+The initial value of the global is written by calling
+the provided WRITE-INIT-EXPR function.
+The output is as follows:
+    type: u8
+    mutable: u8 (0 or 1)
+    expression: expr"
   (write-byte type stream)
   (write-byte mutability stream)
   (funcall write-init-expr))
+
+(declaim (ftype (function (string
+                           wasmgen:extern-index
+                           (unsigned-byte 32)
+                           stream)
+                          t)
+                write-export))
+(defun write-export (name kind index stream)
+  "Write an export within the export section.
+The output is as follows:
+    name: string
+    kind: u8
+    index: u32"
+  (write-name name stream)
+  (write-byte kind stream)
+  (write-u32 index stream))

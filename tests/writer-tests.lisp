@@ -62,3 +62,11 @@
    (flet ((write-expr ()
             (write-byte #xff stream)))
      (write-global +type/f64+ 0 #'write-expr stream))))
+
+(lt:define-test "write-export" (writer)
+  (stream-contains
+   (concatenate 'vector
+                #(5)
+                (char-codes #\h #\e #\l #\l #\o)
+                #(3 2))
+   :after (write-export "hello" wasmgen:+kind/global+ 2 stream)))

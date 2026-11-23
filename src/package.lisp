@@ -7,6 +7,7 @@
    #:bytes
    #:import-kind
    #:reftype
+   #:extern-index
    ;; classes and methods
    #:vector-output-stream
    #:vector-output-stream-vector
@@ -38,6 +39,7 @@
    #:+kind/table+
    #:+kind/memory+
    #:+kind/global+
+   #:+kind/tag+
    #:+absheaptype/exn+
    #:+absheaptype/array+
    #:+absheaptype/struct+

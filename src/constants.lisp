@@ -30,6 +30,7 @@
 (defconstant +kind/table+      #x01)
 (defconstant +kind/memory+     #x02)
 (defconstant +kind/global+     #x03)
+(defconstant +kind/tag+        #x04)
 
 (defconstant +absheaptype/exn+      #x69)
 (defconstant +absheaptype/array+    #x6A)

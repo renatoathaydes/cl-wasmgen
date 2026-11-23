@@ -17,3 +17,6 @@
 
 (deftype reftype ()
   `(member ,+absheaptype/func+ ,+absheaptype/extern+))
+
+(deftype extern-index ()
+  `(member ,+kind/function+ ,+kind/table+ ,+kind/memory+ ,+kind/global+ ,+kind/tag+))
